@@ -1,0 +1,72 @@
+@model IEnumerable<_102180192_PhanTheTue.Models.Computer>
+<div class="container p-3"></div>
+<div class="row pt-4">
+    <div class="col-6">
+        <h2 class="text-primary"> Welcome to Computer Shop</h2>
+    </div>
+    <div class="ml-5">
+        <a asp-action="Create" class="btn btn-primary ">
+            Create New Computer
+        </a>
+    </div>
+</div>
+<br />
+@using (Html.BeginForm("Index", "Computer", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-12">
+            <div class="col-4">
+                <input type="text" name="searchName" />
+            </div>
+            <div class="col-4">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+    </div>
+}
+<br />
+@if (Model.Count() > 0)
+{
+    <table class="table table-border table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th> <a asp-action="Index" asp-route-sortOrder='@ViewData["IDSortParm"]'>
+                    Computer ID
+                    </a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder='@ViewData["NameSortParm"]'>
+                    Name Computer
+                    </a>
+                </th>
+                <th>Type Computer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @foreach (var obj in Model)
+        {
+            <tr>
+                <td width="20%">
+                    @obj.id
+                </td>
+                <td width="40%">@obj.name</td>
+                <td width="20%">@obj.type</td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Computer" asp-route-Id="@obj.id" asp-action="Edit" class="btn btn-success mx-2">
+                            Edit
+                        </a>
+                        <a asp-controller="Computer" asp-route-Id="@obj.id" asp-action="Delete" class="btn btn-danger">
+                            Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No student exists.</p>
+}
+</div>
